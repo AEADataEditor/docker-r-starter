@@ -47,10 +47,10 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 Now you can upload it. Set the `TAG` and `IMAGEID` accordingly.
 
 ```
-TAG=1409
 IMAGEID=52e8f83a14f8
+TAG=1409
 MYHUBID=larsvilhuber
-MYIMG=aearep-
+MYIMG=aearep
 docker tag $IMAGEID $MYHUBID/${MYIMG}:$TAG
 docker tag $IMAGEID $MYHUBID/${MYIMG}:latest
 docker push $MYHUBID/${MYIMG}
