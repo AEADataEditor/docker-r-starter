@@ -48,11 +48,12 @@ Now you can upload it. Set the `TAG` and `IMAGEID` accordingly.
 
 ```
 IMAGEID=52e8f83a14f8
-TAG=1409
-MYHUBID=larsvilhuber
+TAG=v1
+ISSUE=1409
 MYIMG=aearep
-docker tag $IMAGEID $MYHUBID/${MYIMG}:$TAG
-docker tag $IMAGEID $MYHUBID/${MYIMG}:latest
+MYHUBID=larsvilhuber
+docker tag $IMAGEID $MYHUBID/${MYIMG}-${ISSUE}:$TAG
+docker tag $IMAGEID $MYHUBID/${MYIMG}-${ISSUE}:latest
 docker push $MYHUBID/${MYIMG}
 ```
 
@@ -61,7 +62,7 @@ docker push $MYHUBID/${MYIMG}
 If using a pre-built image on [Docker Hub](https://hub.docker.com/repository/docker/larsvilhuber/):
 
 ```
-docker run -it -rm larsvilhuber/${MYIMG}
+docker run -it --rm larsvilhuber/${MYIMG}
 ```
 
 If using the image you just created:
