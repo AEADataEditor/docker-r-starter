@@ -71,7 +71,14 @@ If using the image you just created:
 docker run -it --rm larsvilhuber/${MYIMG}
 ```
 
-You can now start to compile code.
+Somewhat more sophisticated, if you are in a project directory (for instance, the replication package you just downloaded), you can access it directly within the image as follows:
+
+```
+docker run -it --rm -v $(pwd)/subdir:/code -w /code larsvilhuber/${MYIMG}
+```
+
+
+You can now start to run code.
 
 ## NOTE
 
