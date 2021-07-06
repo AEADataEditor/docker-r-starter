@@ -14,47 +14,31 @@ See the [setup.R](setup.R) file, and update accordingly.
 
 > WARNING: not all packages might build, depending on whether the R base image has the relevant libraries. You might want to change R base image, or switch to another image from [rocker](https://hub.docker.com/u/rocker).
 
+### Setup info
+
+Set the `TAG` and `IMAGEID` accordingly.
+
+```
+TAG=v$(date +%F)
+MYIMG=AER-9999-8888
+MYHUBID=aeadataeditor
+```
 ### Build the image
 
 ```
-docker build  .
+docker build  . -t $MYIMG:$TAG
+```
+or if using the newer build system 
+```
+DOCKER_BUILDKIT=1 docker build . -t $MYIMG:$TAG
 ```
 
 ## Publish the image
 
-The resulting docker image can be uploaded to [Docker Hub](https://hub.docker.com/), if desired, Find the image ID, this will also have been the output of the `docker build` command.
+The resulting docker image can be uploaded to [Docker Hub](https://hub.docker.com/), if desired.
 
 ```
-...
-Removing intermediate container cb12e70b0154
- ---> 52e8f83a14f8
-Successfully built 52e8f83a14f8
-```
-
-or list your images:
-
-```
-docker images 
-```
-output:
-```
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-<none>              <none>              52e8f83a14f8        25 seconds ago      665MB
-<none>              <none>              fb095c3f9ade        31 minutes ago      670MB
-<none>              <none>              a919483dbe22        34 minutes ago      107MB
-```
-
-Now you can upload it. Set the `TAG` and `IMAGEID` accordingly.
-
-```
-IMAGEID=52e8f83a14f8
-TAG=v1
-ISSUE=1409
-MYIMG=aearep
-MYHUBID=larsvilhuber
-docker tag $IMAGEID $MYHUBID/${MYIMG}-${ISSUE}:$TAG
-docker tag $IMAGEID $MYHUBID/${MYIMG}-${ISSUE}:latest
-docker push $MYHUBID/${MYIMG}
+docker push $MYHUBID/${MYIMG}:$TAG
 ```
 
 ## Using the image
@@ -62,19 +46,19 @@ docker push $MYHUBID/${MYIMG}
 If using a pre-built image on [Docker Hub](https://hub.docker.com/repository/docker/larsvilhuber/):
 
 ```
-docker run -it --rm larsvilhuber/${MYIMG}
+docker run -it --rm $MYHUBID/${MYIMG}:$TAG
 ```
 
 If using the image you just created:
 
 ```
-docker run -it --rm larsvilhuber/${MYIMG}
+docker run -it --rm $MYHUBID/${MYIMG}:$TAG
 ```
 
 Somewhat more sophisticated, if you are in a project directory (for instance, the replication package you just downloaded), you can access it directly within the image as follows:
 
 ```
-docker run -it --rm -v $(pwd)/subdir:/code -w /code larsvilhuber/${MYIMG}
+docker run -it --rm -v $(pwd)/subdir:/code -w /code $MYHUBID/${MYIMG}:$TAG
 ```
 
 
