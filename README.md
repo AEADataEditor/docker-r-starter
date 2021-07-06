@@ -20,7 +20,7 @@ Set the `TAG` and `IMAGEID` accordingly.
 
 ```
 TAG=v$(date +%F)
-MYIMG=AER-9999-8888
+MYIMG=aer-9999-8888
 MYHUBID=aeadataeditor
 ```
 ### Build the image
