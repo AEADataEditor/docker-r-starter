@@ -1,5 +1,17 @@
-mran.date <- "2020-04-28"
-options(repos=paste0("https://cran.microsoft.com/snapshot/",mran.date,"/"))
+# set the date - for MRAN, this suffices, but for Rstudio Package Manager, you need additional info
+mran.date <- "2022-01-03"
+
+# For Rstudio Package Manager, if changing the date, figure out the suffix
+# here: https://packagemanager.rstudio.com/client/#/repos/1/overview
+
+rpm.suffix  <- "+Y3JhbiwyOjQ1MjYyMTU7NTY4Qjk1ODA"
+# if you need source packages, use this repo.src one
+repo.binary <- paste0("https://packagemanager.rstudio.com/all/__linux__/focal/",mran.date,rpm.suffix)
+repo.src    <- paste0("https://packagemanager.rstudio.com/all/",mran.date,rpm.suffix)
+
+
+# use the binary package manager 
+options(repos=repo.binary)
 
 pkgTest <- function(x,try=FALSE)
 {
