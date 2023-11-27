@@ -2,11 +2,10 @@
 # Pass variables into the file
 ARG VERSION=4.3.1
 ARG TYPE=r-ver
-ARG SETUP=setup.R
 
 FROM rocker/$TYPE:$VERSION
 
-COPY ${SETUP} setup.R
-RUN Rscript setup.R
+COPY setup.R .
+RUN R CMD BATCH setup.R
 
 
