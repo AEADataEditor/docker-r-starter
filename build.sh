@@ -1,24 +1,20 @@
 #!/bin/bash
+PWD=$(pwd)
+. ${PWD}/.myconfig.sh
+  
+# build the docker if necessary
 
-TAG=v$(date +%F)
-MYIMG=aer-9999-8888
-MYHUBID=aeadataeditor
+BUILD=yes
 
-### Build the image
-DOCKER_BUILDKIT=1 docker build . -t $MYHUBID/$MYIMG:$TAG
+if [[ "$BUILD" == "yes" ]]; then
+  docker build . -t $dockerrepo
+fi
 
-echo "Ready to push?"
-echo "  docker push  $MYHUBID/${MYIMG}:$TAG"
-read answer
-case $answer in 
-   y|Y)
-   docker push  $MYHUBID/${MYIMG}:$TAG
-   ;;
-   *)
-   exit 0
-   ;;
-esac
-
-
-echo "You are good to go"
-echo "docker run -it --rm -v \"\$(pwd)\":/project -w /project $MYHUBID/${MYIMG}:$TAG R CMD BATCH main.R"
+# push the docker if wanted
+# interactively query user for push
+read -p "Push to dockerhub? (yes/no) " PUSH
+PUSH=no
+if [[ "$PUSH" == "yes" ]]; then
+  echo "Pushing to $dockerrepo"
+  nohup docker push $dockerrepo &
+fi
