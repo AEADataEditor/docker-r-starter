@@ -1,6 +1,6 @@
 #!/bin/bash
-PWD=$(pwd)
-. ${PWD}/.myconfig.sh
+myPWD=$(pwd)
+. ${myPWD}/.myconfig.sh
   
 # build the docker if necessary
 
